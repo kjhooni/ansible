@@ -1,0 +1,33 @@
+---
+- name: Install httpd and start
+  hosts: webservers
+  remote_user: root
+  become: true
+
+  tasks:
+  - name: httpd install
+    ansible.builtin.yum:
+      name: httpd
+      state: latest
+
+  - name: httpd start
+    ansible.builtin.service:
+      name: httpd
+      enabled: true
+      state: started
+
+- name: Install DB
+  hosts: dbservers
+  remote_user: root
+  become: true
+
+  tasks:
+  - name: install db
+    ansible.builtin.yum:
+      name: mariadb-server
+      state: latest
+
+        #  - name: Ensure that postgresql is started
+        #    ansible.builtin.service:
+        #      name: postgresql
+        #      state: started

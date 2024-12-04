@@ -1,0 +1,22 @@
+---
+- name: Install httpd and start
+  hosts: webservers
+  remote_user: root
+  become: true
+
+  tasks:
+  - name: httpd install
+    ansible.builtin.yum:
+      name: httpd
+      state: latest
+
+  - name: httpd start
+    ansible.builtin.service:
+      name: httpd
+      enabled: true
+      state: started
+  - name: Copy index.html
+    copy:
+      src: files/index.html
+      dest: /var/www/index.html
+      backup: yes

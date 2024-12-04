@@ -1,0 +1,23 @@
+all:
+  hosts:
+    web01:
+      ansible_host: 10.178.0.5
+    web02:
+      ansible_host: 10.178.0.6
+    db01:
+      ansible_host: 10.178.0.8
+  children:
+    webservers:
+      hosts:
+        web01:
+        web02:
+    dbservers:
+      hosts:
+        db01:
+    dc_oregon:
+      children:
+        webservers:
+        dbservers:
+      vars:
+        ansible_user: kimjh
+        ansible_ssh_private_key_file: gcp-key.pem
