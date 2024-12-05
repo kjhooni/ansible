@@ -1,0 +1,42 @@
+---
+- name: DB task
+  hosts: dbservers
+  remote_user: root
+  become: true
+    #  vars:
+    #    dbname: electric
+    #    dbuser: current
+    #    dbpass: tesla
+
+  tasks:
+  - name: install db
+    ansible.builtin.yum:
+      name: mariadb-server
+      state: latest
+
+  - name: Ensure that mariadb is started
+    ansible.builtin.service:
+      name: mariadb
+      state: started
+      enabled: yes
+
+  - name: install PyMySQL
+    yum:
+      name: python3-PyMySQL
+      state: latest
+
+  - name: Create a new database with name 'accounts'
+    mysql_db:
+      name: "{{dbname}}"
+      state: present
+
+  - name: Create database user with name 'vprofile'
+    mysql_user:
+      name: "{{dbuser}}"
+      password: "{{dbpass}}"
+      priv: '*.*:ALL'
+      state: present
+    register: dbout
+
+  - debug:
+      var: dbout
