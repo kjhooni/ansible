@@ -4,6 +4,8 @@ all:
       ansible_host: 10.178.0.5
     web02:
       ansible_host: 10.178.0.6
+    web03:
+      ansible_host: 10.178.0.10
     db01:
       ansible_host: 10.178.0.8
   children:
@@ -11,6 +13,7 @@ all:
       hosts:
         web01:
         web02:
+        web03:
     dbservers:
       hosts:
         db01:
