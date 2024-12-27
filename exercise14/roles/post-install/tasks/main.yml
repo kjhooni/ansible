@@ -1,0 +1,52 @@
+---
+# tasks file for post-install
+- name: Install package on CentOS
+  ansible.builtin.dnf:
+    name: "{{item}}"
+    state: present
+  when: ansible_distribution == "CentOS"
+  loop:
+    - chrony
+    - wget
+    - git
+    - zip
+    - unzip
+
+- name: Install package on Ubuntu
+  ansible.builtin.apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+  loop:
+    - ntp
+    - wget
+    - git
+    - zip
+    - unzip
+
+- name: CentOS chrony conf
+  ansible.builtin.template:
+    src: chrony_conf.j2
+    dest: /etc/chrony.conf
+  when: ansible_distribution == "CentOS"
+  notify:
+    - Restart service on CentOS
+
+- name: Ubuntu ntp conf
+  ansible.builtin.template:
+    src: ntp_conf.j2
+    dest: /etc/ntp.conf
+  when: ansible_distribution == "Ubuntu"
+  notify:
+    - Restart service on Ubuntu
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /opt/test21
+    state: directory
+
+- name: Dump file
+  copy:
+    src: myfile.txt
+    dest: /tmp/myfile.txt

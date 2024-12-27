@@ -1,0 +1,27 @@
+---
+- name: exercise11
+  hosts: all
+  tasks:
+  - name: Install package on CentOS
+    ansible.builtin.dnf:
+      name: "{{item}}"
+      state: present
+    when: ansible_distribution == "CentOS"
+    loop:
+      - chrony
+      - wget
+      - git
+      - zip
+      - unzip
+  - name: Install package on Ubuntu
+    ansible.builtin.apt:
+      name: "{{item}}"
+      state: present
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+    loop:
+      - ntp
+      - wget
+      - git
+      - zip
+      - unzip

@@ -1,0 +1,7 @@
+NAME: groupvars_name
+COMM: groupvars_comment
+OS: CentOS
+CENTOS: CentOS
+UBUNTU: Ubuntu
+ntp0: time.bora.net
+ntp1: ntp.kornet.net

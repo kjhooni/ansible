@@ -1,0 +1,64 @@
+---
+- name: exercise13
+  hosts: all
+  tasks:
+  - name: Install package on CentOS
+    ansible.builtin.dnf:
+      name: "{{item}}"
+      state: present
+    when: ansible_distribution == "CentOS"
+    loop:
+      - chrony
+      - wget
+      - git
+      - zip
+      - unzip
+
+  - name: Install package on Ubuntu
+    ansible.builtin.apt:
+      name: "{{item}}"
+      state: present
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+    loop:
+      - ntp
+      - wget
+      - git
+      - zip
+      - unzip
+
+  - name: CentOS chrony conf
+    ansible.builtin.template:
+      src: ./templates/chrony_conf
+      dest: /etc/chrony.conf
+    when: ansible_distribution == "CentOS" 
+    notify:
+      - Restart service on CentOS
+
+  - name: Ubuntu ntp conf
+    ansible.builtin.template:
+      src: ./templates/ntp_conf
+      dest: /etc/ntp.conf
+    when: ansible_distribution == "Ubuntu"
+    notify:
+      - Restart service on Ubuntu
+
+  - name: Create a directory if it does not exist
+    ansible.builtin.file:
+      path: /opt/test21
+      state: directory
+
+  handlers:        
+  - name: Restart service on CentOS
+    ansible.builtin.service:
+      name: chronyd
+      state: restarted
+      enabled: yes
+    when: ansible_distribution == "CentOS"
+
+  - name: Restart service on Ubuntu
+    ansible.builtin.service:
+      name: ntp
+      state: restarted
+      enabled: yes
+    when: ansible_distribution == "Ubuntu"

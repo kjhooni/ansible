@@ -1,0 +1,4 @@
+---
+# defaults file for post-install
+ntp0: time.bora.net.test111
+ntp1: ntp.kornet.net.test11
