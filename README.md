@@ -80,3 +80,11 @@ exercise10
   - when 사용하여 os별로 task 분기
   - centos에서 chrony패키지 설치, chronyd서비스 start/enable
   - ubuntu에서 ntp패키지 설치, ntp서비스 start/enable
+
+# exercise11
+- exercise11 폴더 생성 및 이동
+- provisioning.yaml파일 수정
+  - CentOS에 아래의 패키지 설치
+    - chrony, wget, git, zip, unzip
+  - Ubuntu에 아래의 패키지 설치
+    - ntp, wget, git, zip, unzipc
