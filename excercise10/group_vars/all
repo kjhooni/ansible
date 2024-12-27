@@ -1,0 +1,6 @@
+NAME: groupvars_name
+COMM: groupvars_comment
+OS: CentOS
+CENTOS: CentOS
+UBUNTU: Ubuntu
+

@@ -3,4 +3,4 @@ myhosts:
     web01:
       ansible_host: 10.178.0.5
       ansible_user: kimjh
-      ansible_ssh_private_key_file: gcp-key.pem
+      ansible_ssh_private_key_file: /root/gcp-key.pem

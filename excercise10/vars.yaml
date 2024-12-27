@@ -1,0 +1,7 @@
+---
+- name: exercise10
+  hosts: all
+  tasks:
+  - name: Install chrony on CentOS
+    debug:
+      msg: "{{OS}}"

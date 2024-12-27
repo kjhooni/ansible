@@ -1,0 +1,27 @@
+---
+- name: exercise10
+  hosts: all
+  tasks:
+  - name: Install chrony on CentOS
+    ansible.builtin.dnf:
+      name: chrony
+      state: present
+    when: ansible_distribution == "CentOS"
+  - name: start service on CentOS
+    ansible.builtin.service:
+      name: chronyd
+      state: started
+      enabled: yes
+    when: ansible_distribution == "CentOS"
+  - name: Install ntp on Ubuntu
+    ansible.builtin.apt:
+      name: ntp
+      state: present
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+  - name: start service on Ubuntu
+    ansible.builtin.service:
+      name: ntp
+      state: started
+      enabled: yes
+    when: ansible_distribution == "Ubuntu"
