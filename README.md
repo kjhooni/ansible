@@ -3,7 +3,7 @@
   - control node_OS: Debian Linux 12
 - 인벤토리 호스트 4ea
   - web01,web02,db01_OS:CentOS 9
-  - web03_OS: Ubuntu20.04 
+  - web03_OS: Ubuntu20.04
 
 
 # exercise1
@@ -87,4 +87,44 @@ exercise10
   - CentOS에 아래의 패키지 설치
     - chrony, wget, git, zip, unzip
   - Ubuntu에 아래의 패키지 설치
-    - ntp, wget, git, zip, unzipc
+    - ntp, wget, git, zip, unzip
+
+# exercise12
+- exercise12 폴더 생성 및 이동
+- provisioning.yaml파일 수정
+- 아래의 task 추가
+  - template모듈을 활용하여 컨트롤러노드의 templates/chrony_conf, templates/ntp_conf를 
+  - 인벤토리 호스트 CentOS의 chrony.conf, Ubuntu의 ntp.conf 덮어쓰기
+(CentOS: /etc/chrony.conf, Ubuntu: /etc/ntp.conf)
+- 아래의 task 추가
+  - ntp, chronyd service restart
+- groupvars/all에 ntp서버 변수 추가
+  - ntp0: time.bora.net
+  - ntp1: ntp.kornet.net
+- templates/ntp_conf, templates/chrony_conf 에서 ansible 변수를 사용하도록 수정
+- 아래의 task 추가
+  - file모듈 이용하여 /opt/test21 디렉토리 추가
+
+# exercise13
+- exercise13 폴더 생성 및 이동
+- provisioning.yaml파일 수정
+- handlers를 이용하여 templates/conf파일이 변경 될 때에만 chronyd, ntp 서비스 restart
+
+# exercise14
+- exercise14 폴더 생성 및 이동
+- roles 디렉터리 생성 후 해당 디렉토리에서 ansible-galaxy init post-install
+- 결론적으로 provisioning.yaml파일을 아래와 같이 수정 후 ansible-playbook provisioning.yaml 실행했을때, 이전과 동일하게 동작 하도록 작업 진행
+    
+```yaml
+- name: exercise14
+  hosts: all
+  roles:
+    - post-install
+```
+## 팁: VI 편집기에서 공백 제거
+
+명령어: 2칸 공백으로 시작하는 문자열의 공백을 제거
+
+```bash
+:%s/^    //
+```
