@@ -128,3 +128,20 @@ exercise10
 ```bash
 :%s/^    //
 ```
+
+
+# exercise15
+- exercise15 폴더 생성 및 이동
+- aws ansible iam 계정 생성 및 bashrc에 계정의 access_key,           secret_key 변수 등록 필요
+  - export AWS_ACCESS_KEY_ID=’accesskey’
+  - export AWS_SECRET_ACCESS_KEY=’secretkey’
+- us-west-2지역 키 생성(이름: sample)
+  - 키가 정상적으로 생성됐을 경우 /root/sample.pem 저장
+    
+- ec2인스턴스 상세정보
+  - sample 키 이용
+  - ec2 name: public-compute-instance
+  - instance_type: t2.micro
+  - security_group: default
+  - image_id: ami-02d8bad0a1da4b6fd
+  - 태그: Environment: Testing
